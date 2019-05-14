@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, IconButton, Grid } from "@material-ui/core";
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  }
+});
 
 class TodoApp extends Component {
   constructor(props) {
@@ -42,9 +50,10 @@ class TodoApp extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
-        <div>
+      <Grid container className={classes.root}>
+        <Grid item xs={12} md={12}>
           <List>
             {
               // 建立清單項目
@@ -53,14 +62,14 @@ class TodoApp extends Component {
               ))
             }
           </List>
-        </div>
-        <div>
+        </Grid>
+        <Grid item xs={12} md={12}>
           <form onSubmit={this.handleFormSubmit}>
             <input type="text" value={this.state.text} onChange={this.handleInputChange} />
             <button>新增</button>
           </form>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -82,11 +91,11 @@ function LiElm(props) {
       />
       <ListItemSecondaryAction>
         <IconButton aria-label="Delete" onClick={handleClick}>
-          <DeleteIcon/>
+          <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
   );
 }
 
-export default TodoApp;
+export default withStyles(styles)(TodoApp);
