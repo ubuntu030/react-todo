@@ -9,6 +9,7 @@ class TodoApp extends Component {
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
   }
   // 新增項目事件
   handleFormSubmit(e) {
@@ -28,6 +29,14 @@ class TodoApp extends Component {
       text: e.target.value
     })
   }
+  // 項目刪除
+  handleItemDelete(index) {
+    const newItems = [...this.state.items];
+    newItems.splice(index, 1);
+    this.setState({
+      items: newItems
+    })
+  }
 
   render() {
     return (
@@ -37,9 +46,7 @@ class TodoApp extends Component {
             {
               // 建立清單項目
               this.state.items.map((item, key) => (
-                <li key={key}>
-                  {item}
-                </li>
+                <LiElm value={item} key={key} index={key} onItemDelete={this.handleItemDelete} />
               ))
             }
           </ul>
@@ -53,6 +60,23 @@ class TodoApp extends Component {
       </div>
     );
   }
+}
+/**
+ * 返回清單項目
+ * @param {Object} props
+ * @param {Number} props.index
+ * @param {String} props.value
+ * @param {Callback} props.onItemDelete
+ * @returns {Element} 
+ */
+function LiElm(props) {
+  const { value, index, onItemDelete } = props;
+  const handleClick = onItemDelete.bind(this, index);
+  return (
+    <li onClick={handleClick}>
+      {value}
+    </li>
+  );
 }
 
 export default TodoApp;
