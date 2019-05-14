@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, IconButton, Grid } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class TodoApp extends Component {
   constructor(props) {
@@ -42,14 +45,14 @@ class TodoApp extends Component {
     return (
       <div>
         <div>
-          <ul>
+          <List>
             {
               // 建立清單項目
               this.state.items.map((item, key) => (
                 <LiElm value={item} key={key} index={key} onItemDelete={this.handleItemDelete} />
               ))
             }
-          </ul>
+          </List>
         </div>
         <div>
           <form onSubmit={this.handleFormSubmit}>
@@ -73,9 +76,16 @@ function LiElm(props) {
   const { value, index, onItemDelete } = props;
   const handleClick = onItemDelete.bind(this, index);
   return (
-    <li onClick={handleClick}>
-      {value}
-    </li>
+    <ListItem>
+      <ListItemText
+        primary={value}
+      />
+      <ListItemSecondaryAction>
+        <IconButton aria-label="Delete" onClick={handleClick}>
+          <DeleteIcon/>
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 }
 
