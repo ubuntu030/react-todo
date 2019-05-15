@@ -1,13 +1,42 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid } from "@material-ui/core";
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid, CssBaseline, Paper, Button, TextField } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+  main: {
+    width: 'auto',
+    display: 'block',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+    height: 500
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    height: '100%'
+  },
+  flex1: {
+    display: 'flex',
+    flex: 1
+  },
+  listCtn: {
+    overflowY: 'none',
+    flex: 1
+  },
+  list: {
+    display: 'flex',
+  },
+  textField: {
+    marginBottom: theme.spacing.unit
   }
 });
 
@@ -52,24 +81,50 @@ class TodoApp extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.root}>
-        <Grid item xs={12} md={12}>
-          <List>
-            {
-              // 建立清單項目
-              this.state.items.map((item, key) => (
-                <LiElm value={item} key={key} index={key} onItemDelete={this.handleItemDelete} />
-              ))
-            }
-          </List>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <form onSubmit={this.handleFormSubmit}>
-            <input type="text" value={this.state.text} onChange={this.handleInputChange} />
-            <button>新增</button>
-          </form>
-        </Grid>
-      </Grid>
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            className={classes.flex1}>
+            <Grid container className={classes.listCtn}>
+              <List children={classes.list}>
+                {
+                  // 建立清單項目
+                  this.state.items.map((item, key) => (
+                    <LiElm value={item} key={key} index={key} onItemDelete={this.handleItemDelete} />
+                  ))
+                }
+              </List>
+            </Grid>
+            {/* flex 項目需要搭配 container 使用 */}
+            <Grid container alignItems="flex-end">
+              <form onSubmit={this.handleFormSubmit}>
+                <TextField
+                  required
+                  label="項目"
+                  fullWidth
+                  value={this.state.text}
+                  onChange={this.handleInputChange}
+                  className={classes.textField}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >新增</Button>
+              </form>
+            </Grid>
+          </Grid>
+        </Paper>
+      </main>
+
+
     );
   }
 }
