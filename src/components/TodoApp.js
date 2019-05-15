@@ -25,15 +25,15 @@ const styles = theme => ({
     height: '100%'
   },
   flex1: {
-    display: 'flex',
     flex: 1
   },
   listCtn: {
-    overflowY: 'none',
+    overflowY: 'hidden',
     flex: 1
   },
   list: {
-    display: 'flex',
+    overflowY: 'auto',
+    height: '100%'
   },
   textField: {
     marginBottom: theme.spacing.unit
@@ -91,7 +91,7 @@ class TodoApp extends Component {
             alignItems="center"
             className={classes.flex1}>
             <Grid container className={classes.listCtn}>
-              <List children={classes.list}>
+              <List className={classes.list}>
                 {
                   // 建立清單項目
                   this.state.items.map((item, key) => (
@@ -102,7 +102,7 @@ class TodoApp extends Component {
             </Grid>
             {/* flex 項目需要搭配 container 使用 */}
             <Grid container alignItems="flex-end">
-              <form onSubmit={this.handleFormSubmit}>
+              <form onSubmit={this.handleFormSubmit} className={classes.flex1}>
                 <TextField
                   required
                   label="項目"
