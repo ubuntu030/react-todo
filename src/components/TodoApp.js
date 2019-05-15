@@ -58,7 +58,8 @@ class TodoApp extends Component {
     // 判斷若存在則加入清單
     if (selfState.text && selfState.text.trim()) {
       this.setState((state) => ({
-        items: state.items.concat(state.text),
+        // 最新一筆項目顯示在最上面
+        items: [state.text, ...state.items],
         text: ''
       }));
     }
@@ -123,8 +124,6 @@ class TodoApp extends Component {
           </Grid>
         </Paper>
       </main>
-
-
     );
   }
 }
