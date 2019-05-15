@@ -33,7 +33,8 @@ const styles = theme => ({
   },
   list: {
     overflowY: 'auto',
-    height: '100%'
+    height: '100%',
+    width: '100%'
   },
   textField: {
     marginBottom: theme.spacing.unit
@@ -106,8 +107,9 @@ class TodoApp extends Component {
               <form onSubmit={this.handleFormSubmit} className={classes.flex1}>
                 <TextField
                   required
-                  label="項目"
+                  label="新增項目"
                   fullWidth
+                  variant="outlined"
                   value={this.state.text}
                   onChange={this.handleInputChange}
                   className={classes.textField}
