@@ -105,6 +105,7 @@ class TodoApp extends Component {
             {/* flex 項目需要搭配 container 使用 */}
             <Grid container alignItems="flex-end">
               <form onSubmit={this.handleFormSubmit} className={classes.flex1}>
+                {/* FIXME: 文字過多超出容器問題(https://github.com/material-components/material-components-web/issues/1912) */}
                 <TextField
                   required
                   label="新增項目"
