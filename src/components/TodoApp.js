@@ -139,6 +139,7 @@ class TodoApp extends Component {
  * @returns {Element} 
  */
 function LiElm(props) {
+  // TODO: 優化項目 (https://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children)
   const { value, index, onItemDelete } = props;
   const handleClick = onItemDelete.bind(this, index);
   return (
